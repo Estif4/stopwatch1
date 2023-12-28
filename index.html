@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+
+    </title>
+    <style>
+.whole{
+  background-color: rgb(4, 131, 242);
+  display: inline-block;
+  border-style: solid;
+  padding:50px;
+  margin-top:0px;
+  width:300px;
+
+}
+.whole button {
+        width: 60px;
+        margin-left:25px;
+      
+       
+      }
+button{
+  color:rgb(244, 237, 237);
+  background-color: black;
+  font-size: 30px;
+  margin-top:5px;
+  padding:15px;
+  margin-left:20px;
+  
+}
+.pause{
+  width:120px;
+}
+
+.all{
+  border-style: solid;
+  display: inline-block;
+  padding:5px;
+  border-color:aquamarine;
+  background-color: rgb(241, 251, 222);
+  margin-left:500px;
+}
+.info{
+  font-size:30px;
+  
+  margin-left:115px;
+  color:rgb(232, 229, 229);
+  display:inline-block;
+  background-color: rgb(5, 164, 61);
+padding:10px;
+
+}
+.point{
+  display:inline-block;
+  font-size: 30px;
+  color: white;
+  margin-left:4px;
+}
+.point2{
+  display:inline-block;
+  font-size: 30px;
+  color: white;
+  margin-left:4px;
+}
+    </style>
+  </head>
+  <body>
+    
+   <div class="all"> <p class="info">Stop Watch</p><br>
+    <div class="whole"><button class="hour">00</button>
+      <p class="point">:</p>
+    <button class="stop">00</button>
+    <p class="point2">:</p>
+    <button class="stopwatch">00</button><br>
+</div>
+    <br><button class="stopwatch-start" onclick="stop_watch('start')">Start</button>
+    <button class="pause" onclick="stop_watch('pause')">pause</button>
+    
+    <button class="stopwatch-stop"  onclick="stop_watch('stop')">Reset</button></div>
+    <script>
+        let estif = JSON.parse(localStorage.getItem('estifan'));
+        if(!estif)
+    {
+          estif={
+          value:0,
+          value2:0,
+          value3:0
+ };
+}
+      let check = true;
+      let time; 
+      
+      function stop_watch(valu) {
+       
+        if (valu === 'stop') {
+          clearInterval(time);
+          let watch = document.querySelector('.stopwatch');
+          watch.innerHTML='0';
+            let minute=document.querySelector('.stop');
+            minute.innerHTML='0';
+            let hour=document.querySelector('.hour');
+         hour.innerHTML='0';
+        estif.value=0;
+        estif.value2=0;
+        estif.value3=0;
+            check=true;
+        }
+        else if(valu==='pause'){
+          clearInterval(time);
+          
+          const check_play=document.querySelector('.pause');
+          
+        check=true;
+          if(check_play.innerHTML==='pause'){
+            check_play.innerHTML='play';
+         
+          
+          }
+          else if(check_play.innerHTML==='play'){
+            check_play.innerHTML='pause';
+            stop_watch();
+            
+          }
+        }
+
+        else if (check) {
+          
+          check = false;
+          
+          time = setInterval(function () {
+            const watch = document.querySelector('.stopwatch');
+            const minute=document.querySelector('.stop');
+            const hour=document.querySelector('.hour');
+        
+
+          estif.value++;
+            if (estif.value > 60) {
+              estif.value = 0;0
+              estif.value2++;
+              
+            
+            if(estif.value2===60){
+              estif.value3++;
+              estif.value2=0;
+
+            }}
+            watch.innerHTML =estif.value;
+          minute.innerHTML=estif.value2;
+        hour.innerHTML=estif.value3},1000
+          );
+        }
+        localStorage.setItem('estifan', JSON.stringify(estif));
+      }
+      
+    
+    </script>
+  </body>
+</html>
